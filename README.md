@@ -1,44 +1,68 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# GVSU Open Source Network
 
-## Available Scripts
+## Proposal
 
-In the project directory, you can run:
+### Introduction
+If you're a computer science student and you want to become a better programmer or you're looking for a job or internship, one of the most common pieces of advices is that you should have side projects or contribute to open-source. But the problem is contributing to open-source projects can be intimidating when you're first starting out.
 
-### `npm start`
+Our solution to this is the GVSU Open Source Network, a small networking site where students, alumni, and professors can link to their open-source projects and include how they can contribute. While there are sites like GitHub that have many open-source projects already, this solution allows for developers in the GVSU community to meet in real life. This also helps current GVSU CIS students network and develop OSS along-side GVSU alum currently in the workforce. If the GVSU Open Source Network becomes accessible from the cis.gvsu.edu homepage, then this would act as a good way for GVSU CIS to advertise the success of the program.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Development Stack
+This site would be developed using React, React Hooks, Redux, Firebase, TypeScript, and styled-components. The database for this project will be created using Firebase Cloud Firestore.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Features
+- Ability to create and view projects
+- Ability to customize profile
+- Ability to search and filter projects
+- Colored indicator show online users
+- Notifications for comments
+- Admin account to approve and remove projects
+- Admin account to ban users
+- Extra: GitHub API integration
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Rough Table Design
+```typescript
+// User
+{
+    id: string,
+    isOnline: boolean,
+    name: string,
+    email: string,
+    role: "default" | "admin",
+    userType: "student" | "professor" | "alumnus",
+    about: string,
+    ownedProjects: Project[],
+    contributingToProjects: Projects[],
+    likedProjects: Project[]
+}
+// Project
+{
+    name: string,
+    owner: User,
+    description: string,
+    contributeGuide: string,
+    comments: Comment[],
+    contributors: User[],
+    events: Event[],
+    tags: Tag[],
+    likes: number
+}
+// Tag
+{
+    name: string
+}
+// Event
+{
+    name: string,
+    dateTime: Date,
+    description: string,
+    owner: User,
+    usersAttending: User[]
+    comments: Comment[]
+}
+// Comment
+{
+    comment: string,
+    responses: Comment[]
+}
+```
